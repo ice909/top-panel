@@ -6,6 +6,7 @@ import org.deepin.dtk 1.0
 Item {
     id: control
 
+    property bool checked: false
     property real moveX: 0
     property real moveY: 0
     property bool animationEnabled: false

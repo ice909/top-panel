@@ -2,6 +2,8 @@
 #include "panelhelper.h"
 #include "desktopmenu/menupopupwindow.h"
 #include "window/windowblur.h"
+#include "appmenu/appmenumodel.h"
+#include "appmenu/appmenuapplet.h"
 
 #include <QApplication>
 #include <QScreen>
@@ -23,6 +25,8 @@ Panel::Panel(QQuickView *parent)
     KWindowSystem::setOnDesktop(winId(), NET::OnAllDesktops);
     KWindowSystem::setType(winId(), NET::Dock);
 
+    qmlRegisterType<AppMenuModel>("fun.tarrow", 1, 0, "AppMenuModel");
+    qmlRegisterType<AppMenuApplet>("fun.tarrow", 1, 0, "AppMenuApplet");
     qmlRegisterType<WindowBlur>("fun.tarrow", 1, 0, "WindowBlur");
     qmlRegisterType<MenuPopupWindow>("fun.tarrow", 1, 0, "MenuPopupWindow");
     engine()->rootContext()->setContextProperty("PanelHelper", PanelHelper::instance());
