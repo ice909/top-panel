@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>components/StandardItem.qml</file>
+        <file>components/DesktopMenu.qml</file>
+        <file>components/MenuItem.qml</file>
     </qresource>
 </RCC>

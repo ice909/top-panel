@@ -36,11 +36,17 @@ QString PanelHelper::getIcon() const
     return m_icon;
 }
 
+void PanelHelper::close()
+{
+    NETRootInfo(QX11Info::connection(), NET::CloseWindow)
+        .closeWindowRequest(KWindowSystem::activeWindow());
+}
+
 void PanelHelper::onActiveWindowChanged()
 {
     auto info = KWindowInfo(KWindowSystem::activeWindow(),
-                     NET::WMState | NET::WMVisibleName | NET::WMWindowType | NET::WMIconName,
-                     NET::WM2WindowClass | NET::WM2DesktopFileName);
+                            NET::WMState | NET::WMVisibleName | NET::WMWindowType | NET::WMIconName,
+                            NET::WM2WindowClass | NET::WM2DesktopFileName);
 
     bool titleHasChanged = false;
     bool iconCHashanged = false;
@@ -51,8 +57,7 @@ void PanelHelper::onActiveWindowChanged()
         titleHasChanged = true;
         iconCHashanged = true;
     } else if (isAcceptableWindow(KWindowSystem::activeWindow())
-        && !blockList.contains(info.windowClassClass())) {
-
+               && !blockList.contains(info.windowClassClass())) {
         m_pid = info.pid();
         m_windowClass = info.windowClassClass().toLower();
 
@@ -67,7 +72,7 @@ void PanelHelper::onActiveWindowChanged()
             m_icon = icon;
             iconCHashanged = true;
         }
-        qDebug() << "pic: " << m_pid <<  " title: " << title << " icon: " << icon;
+        qDebug() << "pic: " << m_pid << " title: " << title << " icon: " << icon;
     }
 
     if (titleHasChanged) {

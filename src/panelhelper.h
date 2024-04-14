@@ -18,6 +18,9 @@ signals:
     void iconChanged();
     void activeWindowChanged(const int &id, const QString &title);
 
+public slots:
+    void close();
+
 private slots:
     void onActiveWindowChanged();
 

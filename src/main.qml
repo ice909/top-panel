@@ -1,7 +1,8 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import org.deepin.dtk 1.0
+import "components"
+import org.deepin.dtk 1.0 as D
 
 Item {
     id: root
@@ -15,33 +16,55 @@ Item {
         opacity: 0.3
     }
 
+    // 活动程序右键菜单
+    DesktopMenu {
+        id: acticityMenu
+
+        MenuItem {
+            text: "关闭"
+            onTriggered: {
+                PanelHelper.close();
+            }
+        }
+
+    }
+
     RowLayout {
-        anchors.fill: root
+        anchors.fill: parent
         spacing: 10
+
         // 活动程序图标和名称
-        Item {
-            Layout.leftMargin: 10
+        StandardItem {
             Layout.fillHeight: true
-            Layout.preferredWidth: root.width / 3
+            Layout.preferredWidth: Math.min(root.width / 3, appInfoLayout.implicitWidth + 20)
+            onClicked: {
+                if (mouse.button === Qt.RightButton)
+                    acticityMenu.popup();
+
+            }
 
             RowLayout {
                 id: appInfoLayout
+
                 anchors.fill: parent
+                anchors.leftMargin: 10
+                anchors.rightMargin: 10
                 spacing: 5
 
-                DciIcon {
+                D.DciIcon {
                     id: appIcon
+
                     Layout.alignment: Qt.AlignVCenter
-                    Layout.preferredWidth: root.iconSize
-                    Layout.preferredHeight: root.iconSize
-                    sourceSize: Qt.size(root.iconSize,
-                                        root.iconSize)
+                    width: root.iconSize
+                    height: root.iconSize
+                    sourceSize: Qt.size(root.iconSize, root.iconSize)
                     name: PanelHelper.icon
                     visible: PanelHelper.icon
                 }
 
                 Label {
                     id: appName
+
                     text: PanelHelper.title
                     Layout.fillWidth: true
                     Layout.fillHeight: true
@@ -51,8 +74,11 @@ Item {
                     Layout.alignment: Qt.AlignVCenter
                     verticalAlignment: Text.AlignVCenter
                 }
+
             }
+
         }
+
     }
 
 }
