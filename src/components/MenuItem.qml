@@ -37,7 +37,7 @@ T.MenuItem {
     background: Rectangle {
         implicitWidth: 200
         implicitHeight: control.visible ? 30 + 10 : 0
-        radius: 10
+        radius: 8
         opacity: 1
         color: control.pressed || highlighted ? control.pressedColor : control.hovered ? control.hoveredColor : "transparent"
 

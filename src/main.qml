@@ -31,6 +31,8 @@ Item {
 
     RowLayout {
         anchors.fill: parent
+        Layout.leftMargin: 10
+        Layout.rightMargin: 10
         spacing: 10
 
         // 活动程序图标和名称
@@ -73,6 +75,52 @@ Item {
                     color: "#000"
                     Layout.alignment: Qt.AlignVCenter
                     verticalAlignment: Text.AlignVCenter
+                }
+
+            }
+
+        }
+
+        Item {
+            Layout.fillWidth: true
+        }
+
+        // 时间和日期
+        StandardItem {
+            Layout.fillHeight: true
+            Layout.preferredWidth: Math.min(root.width / 3, timeLayout.implicitWidth + 20)
+
+            RowLayout {
+                id: timeLayout
+
+                anchors.fill: parent
+                anchors.leftMargin: 10
+                anchors.rightMargin: 10
+                spacing: 5
+
+                Label {
+                    id: timeLabel
+
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    elide: Qt.ElideRight
+                    color: "#000"
+                    font.bold: true
+                    Layout.alignment: Qt.AlignVCenter
+                    verticalAlignment: Text.AlignVCenter
+
+                    Timer {
+                        id: timeTimer
+
+                        interval: 1000
+                        repeat: true
+                        running: true
+                        triggeredOnStart: true
+                        onTriggered: {
+                            timeLabel.text = new Date().toLocaleTimeString(Qt.locale(), "hh:mm:ss");
+                        }
+                    }
+
                 }
 
             }
